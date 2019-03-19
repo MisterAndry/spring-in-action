@@ -9,14 +9,13 @@ import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 public class Order {
 
     private Long id;
 
-    private Date createAt;
+    private Date placedAt;
 
     @NotBlank(message="Name is required")
     private String name;
@@ -48,18 +47,20 @@ public class Order {
         this.tacos.add(design);
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", ccNumber='" + ccNumber + '\'' +
-                ", ccExpiration='" + ccExpiration + '\'' +
-                ", ccCVV='" + ccCVV + '\'' +
-                '}';
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getPlacedAt() {
+        return placedAt;
+    }
+
+    public void setPlacedAt(Date placedAt) {
+        this.placedAt = placedAt;
     }
 
     public String getName() {
@@ -126,23 +127,11 @@ public class Order {
         this.ccCVV = ccCVV;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order)) return false;
-        Order order = (Order) o;
-        return Objects.equals(name, order.name) &&
-                Objects.equals(street, order.street) &&
-                Objects.equals(city, order.city) &&
-                Objects.equals(state, order.state) &&
-                Objects.equals(zip, order.zip) &&
-                Objects.equals(ccNumber, order.ccNumber) &&
-                Objects.equals(ccExpiration, order.ccExpiration) &&
-                Objects.equals(ccCVV, order.ccCVV);
+    public List<Taco> getTacos() {
+        return tacos;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, street, city, state, zip, ccNumber, ccExpiration, ccCVV);
+    public void setTacos(List<Taco> tacos) {
+        this.tacos = tacos;
     }
 }

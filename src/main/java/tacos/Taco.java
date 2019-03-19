@@ -12,7 +12,7 @@ public class Taco {
 
     private Long id;
 
-    private Date createAt;
+    private Date createdAt;
 
     @NotNull
     @Size(min=5, message="Name must be at least 5 characters long")
@@ -29,12 +29,12 @@ public class Taco {
         this.id = id;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getName() {

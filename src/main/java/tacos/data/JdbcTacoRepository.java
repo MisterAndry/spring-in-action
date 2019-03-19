@@ -1,10 +1,13 @@
 package tacos.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import tacos.Ingredient;
 import tacos.Taco;
 
@@ -13,7 +16,11 @@ import java.sql.Types;
 import java.util.Arrays;
 import java.util.Date;
 
+@Repository
 public class JdbcTacoRepository implements TacoRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(JdbcTacoRepository.class);
+
 
     private JdbcTemplate jdbc;
 
@@ -32,14 +39,14 @@ public class JdbcTacoRepository implements TacoRepository {
     }
 
     private long saveTacoInfo(Taco taco) {
-        taco.setCreateAt(new Date());
+        taco.setCreatedAt(new Date());
         PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
-                "insert into Taco (name, createdAt)) values (?, ?)",
+                "insert into Taco (name, createdAt) values (?, ?)",
                 Types.VARCHAR, Types.TIMESTAMP
         ).newPreparedStatementCreator(
                 Arrays.asList(
                         taco.getName(),
-                        new Timestamp(taco.getCreateAt().getTime())));
+                        new Timestamp(taco.getCreatedAt().getTime())));
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(psc, keyHolder);
